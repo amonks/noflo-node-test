@@ -3,69 +3,58 @@
         "name": "main",
         "environment": {
             "type": "noflo-nodejs"
-        },
-        "icon": ""
+        }
     },
     "inports": {},
     "outports": {},
     "groups": [],
     "processes": {
-        "webserver/Server_47u0m": {
+        "webserver/Server_ur9ad": {
             "component": "webserver/Server",
             "metadata": {
                 "label": "webserver/Server",
                 "x": 36,
-                "y": 252,
+                "y": 108,
                 "width": 72,
                 "height": 72
             }
         },
-        "webserver/WriteResponse_g833d": {
+        "webserver/WriteResponse_h3kp7": {
             "component": "webserver/WriteResponse",
             "metadata": {
                 "label": "webserver/WriteResponse",
-                "x": 288,
-                "y": 36,
+                "x": 432,
+                "y": 72,
                 "width": 72,
                 "height": 72
             }
         },
-        "webserver/SendResponse_wl79m": {
+        "webserver/SendResponse_za6ka": {
             "component": "webserver/SendResponse",
             "metadata": {
                 "label": "webserver/SendResponse",
-                "x": 432,
-                "y": 36,
+                "x": 540,
+                "y": 72,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Kick_4cq0d": {
-            "component": "core/Kick",
+        "webserver-test/get-property_xhl00": {
+            "component": "webserver-test/get-property",
             "metadata": {
-                "label": "core/Kick",
+                "label": "webserver-test/get-property",
                 "x": 180,
                 "y": 36,
                 "width": 72,
                 "height": 72
             }
         },
-        "core/Output_k5p1q": {
-            "component": "core/Output",
+        "webserver-test/get-property_sfdgc": {
+            "component": "webserver-test/get-property",
             "metadata": {
-                "label": "core/Output",
-                "x": 180,
-                "y": 252,
-                "width": 72,
-                "height": 72
-            }
-        },
-        "core/Drop_29x5v": {
-            "component": "core/Drop",
-            "metadata": {
-                "label": "core/Drop",
-                "x": 180,
-                "y": 144,
+                "label": "webserver-test/get-property",
+                "x": 288,
+                "y": 36,
                 "width": 72,
                 "height": 72
             }
@@ -74,23 +63,25 @@
     "connections": [
         {
             "src": {
-                "process": "webserver/Server_47u0m",
-                "port": "request"
+                "process": "webserver/WriteResponse_h3kp7",
+                "port": "out"
             },
             "tgt": {
-                "process": "core/Kick_4cq0d",
+                "process": "webserver/SendResponse_za6ka",
                 "port": "in"
             },
-            "metadata": {}
+            "metadata": {
+                "route": null
+            }
         },
         {
             "src": {
-                "process": "webserver/Server_47u0m",
+                "process": "webserver/Server_ur9ad",
                 "port": "request"
             },
             "tgt": {
-                "process": "webserver/WriteResponse_g833d",
-                "port": "in"
+                "process": "webserver-test/get-property_xhl00",
+                "port": "object"
             },
             "metadata": {
                 "route": 0
@@ -98,60 +89,59 @@
         },
         {
             "src": {
-                "process": "core/Kick_4cq0d",
+                "process": "webserver-test/get-property_xhl00",
                 "port": "out"
             },
             "tgt": {
-                "process": "webserver/WriteResponse_g833d",
+                "process": "webserver-test/get-property_sfdgc",
+                "port": "object"
+            }
+        },
+        {
+            "src": {
+                "process": "webserver-test/get-property_sfdgc",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "webserver/WriteResponse_h3kp7",
                 "port": "string"
             },
-            "metadata": {}
+            "metadata": {
+                "route": null
+            }
         },
         {
             "src": {
-                "process": "webserver/WriteResponse_g833d",
-                "port": "out"
+                "process": "webserver/Server_ur9ad",
+                "port": "request"
             },
             "tgt": {
-                "process": "webserver/SendResponse_wl79m",
+                "process": "webserver/WriteResponse_h3kp7",
                 "port": "in"
             },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "webserver/Server_47u0m",
-                "port": "server"
-            },
-            "tgt": {
-                "process": "core/Drop_29x5v",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "src": {
-                "process": "webserver/Server_47u0m",
-                "port": "listening"
-            },
-            "tgt": {
-                "process": "core/Output_k5p1q",
-                "port": "in"
-            },
-            "metadata": {}
-        },
-        {
-            "data": "hello!",
-            "tgt": {
-                "process": "core/Kick_4cq0d",
-                "port": "data"
+            "metadata": {
+                "route": 0
             }
         },
         {
             "data": 6060,
             "tgt": {
-                "process": "webserver/Server_47u0m",
+                "process": "webserver/Server_ur9ad",
                 "port": "listen"
+            }
+        },
+        {
+            "data": "req",
+            "tgt": {
+                "process": "webserver-test/get-property_xhl00",
+                "port": "property"
+            }
+        },
+        {
+            "data": "url",
+            "tgt": {
+                "process": "webserver-test/get-property_sfdgc",
+                "port": "property"
             }
         }
     ]

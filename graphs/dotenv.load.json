@@ -1,0 +1,60 @@
+{
+    "properties": {
+        "name": "dotenv.load",
+        "environment": {
+            "type": "all"
+        }
+    },
+    "inports": {},
+    "outports": {},
+    "groups": [],
+    "processes": {
+        "webserver-test/dotenv-load_x5my8": {
+            "component": "webserver-test/dotenv-load",
+            "metadata": {
+                "label": "webserver-test/dotenv-load",
+                "x": 252,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Repeat_h6b4s": {
+            "component": "core/Repeat",
+            "metadata": {
+                "label": "core/Repeat",
+                "x": 72,
+                "y": -36,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "core/Repeat_h6b4s",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "webserver-test/dotenv-load_x5my8",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "data": "LOADBANG",
+            "tgt": {
+                "process": "webserver-test/dotenv-load_x5my8",
+                "port": "in"
+            }
+        },
+        {
+            "data": "LOADBANG",
+            "tgt": {
+                "process": "core/Repeat_h6b4s",
+                "port": "in"
+            }
+        }
+    ]
+}
