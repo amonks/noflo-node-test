@@ -9,6 +9,150 @@
     "inports": {},
     "outports": {},
     "groups": [],
-    "processes": {},
-    "connections": []
+    "processes": {
+        "webserver/Server_47u0m": {
+            "component": "webserver/Server",
+            "metadata": {
+                "label": "webserver/Server",
+                "x": 36,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "webserver/WriteResponse_g833d": {
+            "component": "webserver/WriteResponse",
+            "metadata": {
+                "label": "webserver/WriteResponse",
+                "x": 288,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "webserver/SendResponse_wl79m": {
+            "component": "webserver/SendResponse",
+            "metadata": {
+                "label": "webserver/SendResponse",
+                "x": 432,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Kick_4cq0d": {
+            "component": "core/Kick",
+            "metadata": {
+                "label": "core/Kick",
+                "x": 180,
+                "y": 36,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Output_k5p1q": {
+            "component": "core/Output",
+            "metadata": {
+                "label": "core/Output",
+                "x": 180,
+                "y": 252,
+                "width": 72,
+                "height": 72
+            }
+        },
+        "core/Drop_29x5v": {
+            "component": "core/Drop",
+            "metadata": {
+                "label": "core/Drop",
+                "x": 180,
+                "y": 144,
+                "width": 72,
+                "height": 72
+            }
+        }
+    },
+    "connections": [
+        {
+            "src": {
+                "process": "webserver/Server_47u0m",
+                "port": "request"
+            },
+            "tgt": {
+                "process": "core/Kick_4cq0d",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "webserver/Server_47u0m",
+                "port": "request"
+            },
+            "tgt": {
+                "process": "webserver/WriteResponse_g833d",
+                "port": "in"
+            },
+            "metadata": {
+                "route": 0
+            }
+        },
+        {
+            "src": {
+                "process": "core/Kick_4cq0d",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "webserver/WriteResponse_g833d",
+                "port": "string"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "webserver/WriteResponse_g833d",
+                "port": "out"
+            },
+            "tgt": {
+                "process": "webserver/SendResponse_wl79m",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "webserver/Server_47u0m",
+                "port": "server"
+            },
+            "tgt": {
+                "process": "core/Drop_29x5v",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "src": {
+                "process": "webserver/Server_47u0m",
+                "port": "listening"
+            },
+            "tgt": {
+                "process": "core/Output_k5p1q",
+                "port": "in"
+            },
+            "metadata": {}
+        },
+        {
+            "data": "hello!",
+            "tgt": {
+                "process": "core/Kick_4cq0d",
+                "port": "data"
+            }
+        },
+        {
+            "data": 6060,
+            "tgt": {
+                "process": "webserver/Server_47u0m",
+                "port": "listen"
+            }
+        }
+    ]
 }
